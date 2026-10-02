@@ -1,10 +1,10 @@
-const followRouter = require("./follow");
-app.use(followRouter);
 const express = require("express");
 const db = require("./db");
 const path = require("path");
 
 const app = express();
+  const followRouter = require("./follow");
+  app.use(followRouter);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
