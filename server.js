@@ -1,3 +1,5 @@
+const followRouter = require("./follow");
+app.use(followRouter);
 const express = require("express");
 const db = require("./db");
 const path = require("path");
