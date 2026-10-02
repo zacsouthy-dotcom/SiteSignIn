@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Follow Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<script>
+  // ======================================================================
+  //  EDIT THIS BLOCK FOR EACH NEW CLIENT. NOTHING ELSE NEEDS TO CHANGE.
+  // ======================================================================
+  const CLIENT = {
+    // Business name shown at the top of the page
+    businessName: "The Rusty Nail Cafe",
+
+    // Shown under the business name (town/suburb is usually enough)
+    location: "Hastings, Hawke's Bay",
+
+    // PHOTO OPTIONS — pick ONE of the two options below:
+    // Option A (default): leave photoUrl as "" and it'll show a circle
+    //    with initials instead — just set initials to 2 letters.
+    // Option B: paste a direct image link (their logo/photo) into photoUrl
+    //    and it'll be used instead of the initials circle.
+    photoUrl: "",            // e.g. "https://example.com/logo.png"
+    initials: "RN",          // only used if photoUrl is left blank
+
+    // Brand accent colour for this client (defaults to Local Link orange).
+    // Leave as-is unless the client wants their own colour instead.
+    accentColor: "#ff8a2b",
+    accentColorDark: "#ff6a00",
+
+    // -------- Social links --------
+    // For each platform: set "show" to false to hide it completely if the
+    // business doesn't use that platform. "handle" is what's displayed.
+    instagram: { show: true, handle: "rustynailcafe" },
+    facebook:  { show: true, handle: "rustynailcafe", displayName: "The Rusty Nail Cafe" },
+    tiktok:    { show: true, handle: "rustynailcafe" }
+  };
+  // ======================================================================
+  //  DO NOT EDIT BELOW THIS LINE
+  // ======================================================================
+</script>
+
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #0a0908;
+    --card-bg: rgba(255,255,255,0.045);
+    --card-border: rgba(255,255,255,0.09);
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.6);
+    --text-dimmer: rgba(255,255,255,0.4);
+    --accent: #ff8a2b;
+    --accent-grad: linear-gradient(135deg,#ff9a3c,#ff6a00);
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f5f3ef; --card-bg: #ffffff; --card-border: rgba(0,0,0,0.08);
+      --text: #17140f; --text-dim: rgba(0,0,0,0.6); --text-dimmer: rgba(0,0,0,0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0908; --card-bg: rgba(255,255,255,0.045); --card-border: rgba(255,255,255,0.09);
+    --text: #ffffff; --text-dim: rgba(255,255,255,0.6); --text-dimmer: rgba(255,255,255,0.4);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { min-height:100%; background: var(--bg); font-family:'Inter',-apple-system,sans-serif; }
+  body {
+    display:flex; align-items:center; justify-content:center;
+    padding: 32px 20px calc(32px + env(safe-area-inset-bottom,0px));
+  }
+
+  .grid { position:fixed; inset:-60px; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,140,40,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,140,40,0.06) 1px, transparent 1px);
+    background-size:44px 44px; }
+  .glow { position:fixed; top:-200px; right:-200px; width:560px; height:560px; z-index:0; pointer-events:none;
+    background: radial-gradient(circle, rgba(255,120,20,0.3) 0%, rgba(255,120,20,0) 70%); }
+
+  .card {
+    position:relative; z-index:1; width:100%; max-width:420px;
+    background: var(--card-bg); border:1px solid var(--card-border); border-radius:28px;
+    padding:44px 32px 32px; backdrop-filter: blur(8px); text-align:center;
+  }
+
+  .biz-avatar {
+    width:88px; height:88px; border-radius:50%; margin:0 auto 18px;
+    background: var(--accent-grad); display:flex; align-items:center; justify-content:center;
+    font-size:34px; font-weight:800; color:#1a1206; overflow:hidden;
+  }
+  .biz-avatar img { width:100%; height:100%; object-fit:cover; }
+
+  .biz-name { font-size:26px; font-weight:800; color: var(--text); margin-bottom:6px; }
+  .biz-sub { font-size:15px; color: var(--text-dim); margin-bottom:30px; }
+
+  .follow-tag {
+    display:inline-block; background: rgba(255,138,43,0.14); color: var(--accent);
+    border:1px solid rgba(255,138,43,0.4); font-size:13px; font-weight:800; letter-spacing:1.5px;
+    text-transform:uppercase; padding:8px 20px; border-radius:999px; margin-bottom:26px;
+  }
+
+  .link-list { display:flex; flex-direction:column; gap:14px; margin-bottom: 28px; }
+  .link-btn {
+    display:flex; align-items:center; gap:14px; width:100%;
+    background: rgba(255,255,255,0.04); border:1px solid var(--card-border); border-radius:16px;
+    padding:16px 18px; text-decoration:none; transition: transform .15s ease;
+  }
+  .link-btn:active { transform: scale(0.97); }
+  .link-icon {
+    width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .link-icon svg { width:22px; height:22px; }
+  .ig { background: linear-gradient(135deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5); }
+  .fb { background:#1877f2; }
+  .tt { background:#17140f; border:1px solid rgba(255,255,255,0.15); }
+  .link-text { text-align:left; flex:1; }
+  .link-platform { font-size:16px; font-weight:700; color: var(--text); }
+  .link-handle { font-size:13px; color: var(--text-dimmer); margin-top:1px; }
+  .link-arrow { color: var(--text-dimmer); font-size:18px; }
+
+  .footer { margin-top:8px; font-size:13px; color: var(--text-dimmer); display:flex; align-items:center; justify-content:center; gap:6px; }
+  .footer svg { width:14px; height:14px; }
+  .footer b { color: var(--accent); }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="glow"></div>
+
+  <div class="card">
+    <div class="biz-avatar" id="avatar"></div>
+    <div class="biz-name" id="bizName"></div>
+    <div class="biz-sub" id="bizLocation"></div>
+    <div class="follow-tag">Follow Us On</div>
+
+    <div class="link-list" id="linkList"></div>
+
+    <div class="footer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#ff8a2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
+      Powered by <b>Local Link</b>
+    </div>
+  </div>
+
+  <script>
+    // ---- Apply CLIENT config to the page (no editing needed below) ----
+    document.title = "Follow Us — " + CLIENT.businessName;
+    document.documentElement.style.setProperty('--accent', CLIENT.accentColor);
+    document.documentElement.style.setProperty('--accent-grad',
+      'linear-gradient(135deg,' + CLIENT.accentColor + ',' + CLIENT.accentColorDark + ')');
+
+    document.getElementById('bizName').textContent = CLIENT.businessName;
+    document.getElementById('bizLocation').textContent = CLIENT.location;
+
+    const avatarEl = document.getElementById('avatar');
+    if (CLIENT.photoUrl) {
+      const img = document.createElement('img');
+      img.src = CLIENT.photoUrl;
+      img.alt = CLIENT.businessName;
+      avatarEl.appendChild(img);
+    } else {
+      avatarEl.textContent = CLIENT.initials;
+    }
+
+    function openWithFallback(event, webUrl) {
+      var fallbackTimer = setTimeout(function () {
+        window.location.href = webUrl;
+      }, 600);
+      window.addEventListener('blur', function onBlur() {
+        clearTimeout(fallbackTimer);
+        window.removeEventListener('blur', onBlur);
+      });
+      return true;
+    }
+    window.openWithFallback = openWithFallback;
+
+    const linkList = document.getElementById('linkList');
+
+    if (CLIENT.instagram && CLIENT.instagram.show) {
+      const webUrl = 'https://instagram.com/' + CLIENT.instagram.handle;
+      linkList.insertAdjacentHTML('beforeend', `
+        <a class="link-btn" href="instagram://user?username=${CLIENT.instagram.handle}"
+           onclick="return openWithFallback(event, '${webUrl}')">
+          <div class="link-icon ig"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+          <div class="link-text">
+            <div class="link-platform">Instagram</div>
+            <div class="link-handle">@${CLIENT.instagram.handle}</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>`);
+    }
+
+    if (CLIENT.facebook && CLIENT.facebook.show) {
+      const webUrl = 'https://facebook.com/' + CLIENT.facebook.handle;
+      linkList.insertAdjacentHTML('beforeend', `
+        <a class="link-btn" href="fb://facewebmodal/f?href=${webUrl}"
+           onclick="return openWithFallback(event, '${webUrl}')">
+          <div class="link-icon fb"><svg viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-7.5H16l.5-3.5h-3V7.8c0-1 .3-1.7 1.7-1.7H16.6V3.1C16.3 3 15.3 3 14.2 3c-2.4 0-4 1.5-4 4.2V10H7.7v3.5h2.5V21h3.3z"/></svg></div>
+          <div class="link-text">
+            <div class="link-platform">Facebook</div>
+            <div class="link-handle">${CLIENT.facebook.displayName || CLIENT.facebook.handle}</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>`);
+    }
+
+    if (CLIENT.tiktok && CLIENT.tiktok.show) {
+      const webUrl = 'https://www.tiktok.com/@' + CLIENT.tiktok.handle;
+      linkList.insertAdjacentHTML('beforeend', `
+        <a class="link-btn" href="${webUrl}" target="_blank" rel="noopener">
+          <div class="link-icon tt"><svg viewBox="0 0 24 24" fill="#fff"><path d="M14 3c.3 1.8 1.6 3.1 3.4 3.4v2.6c-1.2 0-2.4-.4-3.4-1.1v6.2A5.1 5.1 0 1 1 9.1 9v2.7a2.4 2.4 0 1 0 2.3 2.4V3H14z"/></svg></div>
+          <div class="link-text">
+            <div class="link-platform">TikTok</div>
+            <div class="link-handle">@${CLIENT.tiktok.handle}</div>
+          </div>
+          <div class="link-arrow">→</div>
+        </a>`);
+    }
+  </script>
+</body>
+</html>
