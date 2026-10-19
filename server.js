@@ -6,7 +6,7 @@ const app = express();
   const followRouter = require("./follow");
    const tagsRouter = require("./tags");
   app.use(followRouter);
-   app.use(tagsRouter);
+  app.use(tagsRouter);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
