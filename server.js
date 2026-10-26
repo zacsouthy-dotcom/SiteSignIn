@@ -5,6 +5,8 @@ const path = require("path");
 const app = express();
   const followRouter = require("./follow");
    const tagsRouter = require("./tags");
+   const contactRouter = require("./contact");
+   app.use(contactRouter);
   app.use(followRouter);
   app.use(tagsRouter);
 app.use(express.urlencoded({ extended: true }));
